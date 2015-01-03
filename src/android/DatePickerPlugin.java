@@ -63,9 +63,14 @@ public class DatePickerPlugin extends CordovaPlugin {
 		String action = "date";
 		long minDateLong = 0, maxDateLong = 0;
 
+		boolean _is24HourView = false;
+
 		int month = -1, day = -1, year = -1, hour = -1, min = -1;
 		try {
 			JSONObject obj = data.getJSONObject(0);
+
+			 _is24HourView = obj.has("is24HourView") ? obj.getBoolean("is24HourView") : false;
+
 			action = obj.getString("mode");
 
 			String optionDate = obj.getString("date");
@@ -84,6 +89,8 @@ public class DatePickerPlugin extends CordovaPlugin {
 			e.printStackTrace();
 		}
 
+		final boolean is24HourView = _is24HourView;
+
 		// By default initalize these fields to 'now'
 		final int mYear = year == -1 ? c.get(Calendar.YEAR) : year;
 		final int mMonth = month == -1 ? c.get(Calendar.MONTH) : month - 1;
@@ -100,7 +107,7 @@ public class DatePickerPlugin extends CordovaPlugin {
 				public void run() {
 					final TimeSetListener timeSetListener = new TimeSetListener(datePickerPlugin, callbackContext);
 					final TimePickerDialog timeDialog = new TimePickerDialog(currentCtx, timeSetListener, mHour,
-							mMinutes, false);
+							mMinutes, is24HourView);
 					if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
 						timeDialog.setCancelable(true);
 						timeDialog.setCanceledOnTouchOutside(false);
