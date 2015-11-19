@@ -65,7 +65,7 @@ DatePicker.prototype.show = function(options, cb) {
         maxDate: '',
         doneButtonLabel: 'Sélectionner',
         doneButtonColor: '#007AFF',
-        cancelButtonLabel: 'Annulé',
+        cancelButtonLabel: 'Annuler',
         cancelButtonColor: '#000000',
         x: '0',
         y: '0',
